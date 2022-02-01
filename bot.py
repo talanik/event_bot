@@ -570,9 +570,9 @@ async def add_agents(message: types.Message, state: FSMContext):
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
     path = os.getcwd()
-    db_path = os.path.join(path, "/tpl/import_agent.xlsx")
-    print(os.listdir())
-    filename = open(f"/app/tpl/import_agent.xlsx", "rb")
+    db_path = os.path.join(path, "tpl/import_agent.xlsx")
+    print(db_path, os.listdir())
+    filename = open(db_path, "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком сотрудников')
 
