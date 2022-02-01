@@ -572,7 +572,7 @@ async def process_file_command(message: types.Message):
     path = os.getcwd()
     db_path = os.path.join(path, "tpl/import_agent.xlsx")
     print(db_path, os.listdir())
-    filename = open(db_path, "rb")
+    filename = open("tpl", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком сотрудников')
 
