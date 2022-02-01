@@ -285,27 +285,27 @@ async def subscribe(call: types.CallbackQuery):
 async def subscribe(call: types.CallbackQuery):
 
     await call.answer(cache_time=1)
+    user_id = call.from_user.id
+    current_event = call.data
+    current_event = current_event.split('::')
+    event_id = current_event[0]
+
+    subscribeDB = DB()
+
+    event_name = subscribeDB.fetchone(
+        table="events",
+        columns=['event_name'],
+        conditions={"event_id": event_id}
+    )
+
+    file = system.getSubscribers(event_id)
+    filename = open(file, "rb")
+
+    await bot.send_document(user_id, filename, caption=f'Подписчики на событие "{event_name[0]}" (ID: {event_id})')
+
+    os.remove(f'{file}')
     try:
-        user_id = call.from_user.id
-        current_event = call.data
-        current_event = current_event.split('::')
-        event_id = current_event[0]
-
-        subscribeDB =DB()
-
-        event_name = subscribeDB.fetchone(
-            table="events",
-            columns=['event_name'],
-            conditions={"event_id": event_id}
-        )
-
-        file = system.getSubscribers(event_id)
-        filename = open(file, "rb")
-
-        await bot.send_document(user_id, filename, caption=f'Подписчики на событие "{event_name[0]}" (ID: {event_id})')
-
-        os.remove(f'{file}')
-
+        a = 4
     except:
 
         await bot.send_message(

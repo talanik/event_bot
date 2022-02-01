@@ -282,10 +282,13 @@ class SYSTEM():
 
         conditions = {}
 
-        conditions['user_id'] = {}
+        if len(condition)>1:
+            conditions['user_id'] = {}
 
-        conditions['user_id'][0] = condition
-        conditions['user_id'][1] = ' in '
+            conditions['user_id'][0] = condition
+            conditions['user_id'][1] = ' in '
+        else:
+            conditions['user_id'] = condition[0]
 
 
         users = self.db.fetchall(
