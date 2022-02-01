@@ -48,7 +48,7 @@ class EVENT():
 
         columns = self.db.getColumns('events')
 
-        locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
+        # locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
         eventDescription = columns.index(f"event_desc{eventDescLang}")
 
         main = mainBtns(lang=user_id)
