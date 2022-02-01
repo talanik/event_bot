@@ -117,7 +117,11 @@ class EVENT():
         # locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
         eventDescription = columns.index(f"event_desc{eventDescLang}")
 
+        main = mainBtns(lang=user_id)
+
         if len(my_events)>0:
+            event_text = self.system.getlocalize(user_id=user_id, alias="my_events")
+            requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={event_text}&reply_markup={main}")
 
             for id in my_events:
 
@@ -157,7 +161,7 @@ class EVENT():
         else:
 
             text = "Активных событий нет"
-            requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}")
+            requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
 
     def publication(self, event_id):
 

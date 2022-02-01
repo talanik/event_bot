@@ -207,6 +207,8 @@ async def changeLang(call: types.CallbackQuery):
     checkedLang = call.data
     checkedLang = checkedLang.split('::')
 
+    btns_main = mainBtns(lang=call.from_user.id)
+
     if checkedLang[1]!="cancel":
 
         langChange = DB()
@@ -217,17 +219,23 @@ async def changeLang(call: types.CallbackQuery):
             conditions={'user_id': call.from_user.id}
         )
 
-        btns_main = mainBtns(lang=call.from_user.id)
-
         await bot.send_message(
             chat_id=call.message.chat.id,
             text=system.getlocalize(alias='not_lang_change',user_id=call.from_user.id),
             reply_markup=btns_main
         )
 
+    else:
+
+        await bot.send_message(
+            chat_id=call.message.chat.id,
+            text=system.getlocalize(alias='not_cancel',user_id=call.from_user.id),
+            reply_markup=btns_main
+        )
+
     await bot.delete_message(
         chat_id=call.message.chat.id,
-        message_id=call.message.message_id
+        message_id=call.message.message_id,
     )
 
 
@@ -492,8 +500,13 @@ async def process_help_command(message: types.Message):
 
     if (authorized_ids.get(message.from_user.id) is None):
 
-        await message.answer(f'''Доступные команды
-        /id - узнайте свой Telegram ID''', reply_markup=main)
+        lang = system.getLang(message.from_user.id)
+        if lang == 'ru':
+            await message.answer(f'''Доступные команды
+/id - узнайте свой Telegram ID''', reply_markup=main)
+        else:
+            await message.answer(f'''Mumkin bo`lgan buyruqlar
+/id - Telegram ID ni bilib olish''', reply_markup=main)
 
     else:
 
@@ -554,7 +567,7 @@ async def add_agents(message: types.Message, state: FSMContext):
 @dp.message_handler(commands=['getTplAgents'])
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
-    filename = open(f"tpl/import_agent.xlsx", "rb")
+    filename = open(f"./tpl/import_agent.xlsx", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком сотрудников')
 
@@ -562,7 +575,7 @@ async def process_file_command(message: types.Message):
 @dp.message_handler(commands=['getTplEvents'])
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
-    filename = open(f"tpl/import_events.xlsx", "rb")
+    filename = open(f"./tpl/import_events.xlsx", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком событий')
 
@@ -570,7 +583,7 @@ async def process_file_command(message: types.Message):
 @dp.message_handler(commands=['getTplLocalize'])
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
-    filename = open(f"tpl/import_localize.xlsx", "rb")
+    filename = open(f"./tpl/import_localize.xlsx", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком локализаций')
 
