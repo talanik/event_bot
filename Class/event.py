@@ -114,7 +114,7 @@ class EVENT():
         lang = self.system.getLang(user_id=user_id)
         eventDescLang = self.system.getEventDescLang(user_id=user_id)
 
-        locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
+        # locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
         eventDescription = columns.index(f"event_desc{eventDescLang}")
 
         if len(my_events)>0:
@@ -202,7 +202,7 @@ class EVENT():
         lang = self.system.getLang(user_id=user_id)
         eventDescLang = self.system.getEventDescLang(user_id=user_id)
 
-        locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
+        # locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
 
         res = self.db.fetchone(
             table='events',

@@ -1,10 +1,11 @@
 import sqlite3
 
+from Class.db import DB
 
 conn = sqlite3.connect("maindb.db")
 cursor = conn.cursor()
 
-# cursor.execute("DROP TABLE users")
+# cursor.execute("DROP TABLE orders")
 cursor.execute("""CREATE TABLE if not exists localize (
                                                         alias text, 
                                                         ru text, 
@@ -38,7 +39,7 @@ cursor.execute("""CREATE TABLE if not exists events (
                                                         image text, 
                                                         event_date int,
                                                         event_limit int,
-                                                        sended int
+                                                        sended int default 0
                                                     )""")
 
 cursor.execute("""CREATE TABLE if not exists orders (
@@ -55,3 +56,4 @@ cursor.execute("""CREATE TABLE if not exists agents (
 conn.commit()
 
 conn.close()
+
