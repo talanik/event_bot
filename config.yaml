@@ -1,5 +1,7 @@
 TOKEN: '1527372965:AAEhXiPnEyXuivLLNo7Wio5T6FOIJ0eejU8'
+#TOKEN: '1431088889:AAGP9SqQhf1HtNU05Zoqt5FPIPLjio4Egb0'
 
 authorized_ids: {
-  124662401: 'Матьеров Виктор'
+  124662401: 'Матьеров Виктор',
+  523042204: 'Тимур'
 }

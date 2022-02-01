@@ -131,3 +131,4 @@ dmypy.json
 /.idea/
 
 /maindb.db.res
+/maindb1.db

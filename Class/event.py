@@ -79,7 +79,12 @@ class EVENT():
 
                 else:
 
-                    event_btns = eventBtn(event,'user', order, user_id=user_id)
+                    limits = self.db.fetchall(table='orders',conditions={"event_id":event[0]},closed=False)
+                    limit = self.db.fetchone(table='events',columns=['event_limit'],conditions={"event_id":event[0]},closed=False)
+                    if len(limits) != int(limit[0]):
+                        event_btns = eventBtn(event,'user', order, user_id=user_id)
+                    else:
+                        event_btns = eventBtn(event, 'user', ordered=False, user_id=user_id)
 
                 requests.get(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={chat_id}&photo={event[5]}&reply_markup={event_btns}&caption={text}")
 

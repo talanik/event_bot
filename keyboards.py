@@ -76,8 +76,11 @@ def eventBtn(alias, type, ordered, user_id=None):
         if alias[-1]==0:
             btns.append([InlineKeyboardButton("Опубликовать", callback_data=f"{alias[0]}::publication")])
         else:
+            db = DB()
             count = system.getScribeCounts(alias[0])
-            btns.append([InlineKeyboardButton(f"Подписчики ({count})", callback_data=f"{alias[0]}::subscribs")])
+            limit = db.fetchone(table='events', columns=['event_limit'], conditions={"event_id": alias[0]},
+                                     closed=False)
+            btns.append([InlineKeyboardButton(f"Подписчики: {count} из {limit[0]}", callback_data=f"{alias[0]}::subscribs")])
     elif type=='user':
         if ordered is True:
             if user_id is not None:
