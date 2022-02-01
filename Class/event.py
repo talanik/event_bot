@@ -175,7 +175,7 @@ class EVENT():
             closed=False
         )
 
-        text = f"\n{res[1]}\n\n"
+        text = f"\n{res[1][:200]}\n\n"
         text += f"\n📆 {datetime.datetime.fromtimestamp(res[2] * 1000 / 1e3).strftime('%d %B %Y %H:%M')}\n"
         text += f"\n\n\nID: {res[0]}"
 
@@ -211,7 +211,7 @@ class EVENT():
             closed=False
         )
 
-        text = f"\n{res[1]}\n\n"
+        text = f"\n{res[1][:200]}\n\n"
         text += f"\n📆 {datetime.datetime.fromtimestamp(res[2] * 1000 / 1e3).strftime('%d %B %Y %H:%M')}\n"
 
         result = [res[0], text]

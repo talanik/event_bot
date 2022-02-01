@@ -224,7 +224,6 @@ class SYSTEM():
             conditions={"user_id": user_id},
             closed=False
         )
-
         if user is None:
             language = 'ru'
             userName = ''

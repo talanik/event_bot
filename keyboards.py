@@ -80,7 +80,10 @@ def eventBtn(alias, type, ordered, user_id=None):
             btns.append([InlineKeyboardButton(f"Подписчики ({count})", callback_data=f"{alias[0]}::subscribs")])
     elif type=='user':
         if ordered is True:
-            event_text = system.getlocalize(user_id=user_id, alias="scribe_btn")
+            if user_id is not None:
+                event_text = system.getlocalize(user_id=user_id, alias="scribe_btn")
+            else:
+                event_text = "Записаться"
 
             btns.append([InlineKeyboardButton(event_text, callback_data=f"{alias[0]}::subscribe")])
 

@@ -34,23 +34,24 @@ class NOTIFICATION():
             closed=False
         )
 
-        for ids in users:
-            columns = self.db.getColumns('events')
+        if users is not None:
+            for ids in users:
+                columns = self.db.getColumns('events')
 
-            eventDescLang = self.system.getEventDescLang(user_id=ids[2])
+                eventDescLang = self.system.getEventDescLang(user_id=ids[2])
 
-            # locale.setlocale(locale.LC_ALL, f"{ids[1].lower()}_{ids[1]}")
-            eventDescription = columns.index(f"event_desc{eventDescLang}")
-            picture = columns.index(f"image")
+                # locale.setlocale(locale.LC_ALL, f"{ids[1].lower()}_{ids[1]}")
+                eventDescription = columns.index(f"event_desc{eventDescLang}")
+                picture = columns.index(f"image")
 
-            text = ''
-            text += f"\n{event[eventDescription]}\n\n"
-            text += f"\n📆 {datetime.fromtimestamp(event[6] * 1000 / 1e3).strftime('%d %B %Y %H:%M')}\n"
+                text = ''
+                text += f"\n{event[eventDescription]}\n\n"
+                text += f"\n📆 {datetime.fromtimestamp(event[6] * 1000 / 1e3).strftime('%d %B %Y %H:%M')}\n"
 
-            event_btns = eventBtn(event, 'user', True)
+                event_btns = eventBtn(event, 'user', True, user_id=ids[2])
 
-            requests.get(
-                f"https://api.telegram.org/bot{self.token}/sendPhoto?chat_id={ids[0]}&reply_markup={event_btns}&photo={event[picture]}&caption={text}")
+                requests.get(
+                    f"https://api.telegram.org/bot{self.token}/sendPhoto?chat_id={ids[0]}&reply_markup={event_btns}&photo={event[picture]}&caption={text}")
 
 
     def remind(self):
@@ -86,7 +87,6 @@ class NOTIFICATION():
                     conditions={'event_id': ev[0]},
                     closed=False
                 )
-
 
                 for user in users:
 
