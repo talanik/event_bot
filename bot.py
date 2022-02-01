@@ -92,6 +92,7 @@ async def cancel_buying(message: types.Message, state: FSMContext):
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message, state: FSMContext):
+    authorized_ids = system.getAgents()
 
     btns_main = mainBtns(lang=message.from_user.id)
 
@@ -142,6 +143,7 @@ async def process_start_command(message: types.Message, state: FSMContext):
 
 @dp.message_handler(lambda message: message.text in langDB.fetchone(table='localize',conditions={'alias':"events"},closed=False))
 async def process_events_command(message: types.Message):
+    authorized_ids = system.getAgents()
 
     allEvents = EVENT()
 
@@ -165,6 +167,7 @@ async def process_events_command(message: types.Message):
 
 @dp.message_handler(lambda message: message.text in langDB.fetchone(table='localize',conditions={'alias':"my_events"},closed=False))
 async def process_events_command(message: types.Message):
+    authorized_ids = system.getAgents()
 
     allEvents = EVENT()
 
@@ -483,6 +486,7 @@ async def process_start_command(message: types.Message):
 
 @dp.message_handler(lambda message: message.text in langDB.fetchone(table='localize',conditions={'alias':"help"},closed=False))
 async def process_help_command(message: types.Message):
+    authorized_ids = system.getAgents()
 
     main = mainBtns(lang=message.from_user.id)
 
@@ -503,6 +507,7 @@ async def process_help_command(message: types.Message):
 
 @dp.message_handler(commands=['importToTable'])
 async def start_adding_agents(message: types.Message):
+    authorized_ids = system.getAgents()
 
     if (authorized_ids.get(message.from_user.id) is None):
 
