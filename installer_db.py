@@ -58,5 +58,6 @@ conn.commit()
 conn.close()
 
 # db = DB()
-# db.update(table='events',sets={'sended': 0}, conditions={'event_id':1},closed=False)
-# print(db.fetchall('users'))
+# db.insert(table='agents', columns=['agent_id','department','fio'],values=[523042204,'admin','Тимур'],closed=False)
+# # db.update(table='events',sets={'sended': 0}, conditions={'event_id':1},closed=False)
+# print(db.fetchall('agents'))
