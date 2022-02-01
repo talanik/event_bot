@@ -207,8 +207,6 @@ async def changeLang(call: types.CallbackQuery):
     checkedLang = call.data
     checkedLang = checkedLang.split('::')
 
-    btns_main = mainBtns(lang=call.from_user.id)
-
     if checkedLang[1]!="cancel":
 
         langChange = DB()
@@ -219,6 +217,8 @@ async def changeLang(call: types.CallbackQuery):
             conditions={'user_id': call.from_user.id}
         )
 
+        btns_main = mainBtns(lang=call.from_user.id)
+
         await bot.send_message(
             chat_id=call.message.chat.id,
             text=system.getlocalize(alias='not_lang_change',user_id=call.from_user.id),
@@ -226,6 +226,8 @@ async def changeLang(call: types.CallbackQuery):
         )
 
     else:
+
+        btns_main = mainBtns(lang=call.from_user.id)
 
         await bot.send_message(
             chat_id=call.message.chat.id,
@@ -567,6 +569,9 @@ async def add_agents(message: types.Message, state: FSMContext):
 @dp.message_handler(commands=['getTplAgents'])
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
+    path = os.getcwd()
+    db_path = os.path.join(path, "/tpl/import_agent.xlsx")
+    print(db_path)
     filename = open(f"./tpl/import_agent.xlsx", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком сотрудников')
