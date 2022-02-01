@@ -39,7 +39,7 @@ class NOTIFICATION():
 
             eventDescLang = self.system.getEventDescLang(user_id=ids[2])
 
-            locale.setlocale(locale.LC_ALL, f"{ids[1].lower()}_{ids[1]}")
+            # locale.setlocale(locale.LC_ALL, f"{ids[1].lower()}_{ids[1]}")
             eventDescription = columns.index(f"event_desc{eventDescLang}")
             picture = columns.index(f"image")
 
@@ -100,7 +100,7 @@ class NOTIFICATION():
                     lang = self.system.getLang(user_id=user[0])
                     eventDescLang = self.system.getEventDescLang(user_id=user[0])
 
-                    locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
+                    # locale.setlocale(locale.LC_ALL, f"{lang.lower()}_{lang}")
 
 
                     event = self.db.fetchone(

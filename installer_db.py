@@ -5,7 +5,7 @@ from Class.db import DB
 conn = sqlite3.connect("maindb.db")
 cursor = conn.cursor()
 
-# cursor.execute("DROP TABLE orders")
+# cursor.execute("DROP TABLE events")
 cursor.execute("""CREATE TABLE if not exists localize (
                                                         alias text, 
                                                         ru text, 
