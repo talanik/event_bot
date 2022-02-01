@@ -569,7 +569,7 @@ async def add_agents(message: types.Message, state: FSMContext):
 @dp.message_handler(commands=['getTplAgents'])
 async def process_file_command(message: types.Message):
     user_id = message.from_user.id
-    filename = open(f"/tpl/import_agents.xlsx", "rb")
+    filename = open(f"./tpl/import_agents.xlsx", "rb")
     await bot.send_document(user_id, filename,
                             caption='Файл для работы со списком сотрудников')
 
