@@ -210,8 +210,10 @@ class SYSTEM():
 
         if self.getLang(user_id=user_id) == 'ru':
             eventDescLang = ''
-        else:
+        elif self.getLang(user_id=user_id) == 'uz':
             eventDescLang = '_uz'
+        else:
+            eventDescLang = ''
 
         return eventDescLang
 
