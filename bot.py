@@ -29,7 +29,8 @@ authorized_ids = system.getAgents()
 token = system.getToken()
 
 langDB = DB()
-
+d = datetime.datetime.now()
+print(d.date(), d.time())
 notify = NOTIFICATION()
 
 bot = Bot(token=token)
