@@ -52,12 +52,10 @@ cursor.execute("""CREATE TABLE if not exists agents (
                                                         department text, 
                                                         fio text
                                                     )""")
-
 conn.commit()
 
 conn.close()
 
 # db = DB()
-# db.insert(table='agents', columns=['agent_id','department','fio'],values=[523042204,'admin','Тимур'],closed=False)
-# # db.update(table='events',sets={'sended': 0}, conditions={'event_id':1},closed=False)
+# db.insert(table='agents', columns=['agent_id','department','fio'],values=[377259821,'admin','Тратат Трататуев'],closed=False)
 # print(db.fetchall('agents'))

@@ -55,8 +55,6 @@ class EVENT():
         count = 0
 
         if len(events)>0:
-            event_text = self.system.getlocalize(user_id=user_id, alias="events")
-            requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={event_text}&reply_markup={main}")
 
             for event in events:
                 text += f"\n{event[eventDescription]}\n\n"
@@ -87,21 +85,35 @@ class EVENT():
                     else:
                         event_btns = eventBtn(event, 'user', ordered=False, user_id=user_id)
 
-                if event[eventDescription] is not None or event[eventDescription]!='':
+                if event[eventDescription] is not None:
+                    if count==0:
+                        event_text = self.system.getlocalize(user_id=user_id, alias="events")
+                        requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={event_text}&reply_markup={main}")
+
                     requests.get(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={chat_id}&photo={event[5]}&reply_markup={event_btns}&caption={text}")
                     count += 1
                     text = ""
 
                 if count == 0:
-                    text = "Активных событий нет"
-                    requests.get(
-                        f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
+                    if eventDescLang == '':
+                        text = "Активных событий нет"
+                        requests.get(
+                            f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
+
+                    else:
+                        text = "Rejalashtirilgan tadbirlar yo`q"
+                        requests.get(
+                            f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
 
         else:
 
-            text = "Активных событий нет"
-            requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
+            if eventDescLang == '':
+                text = "Активных событий нет"
+                requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
 
+            else:
+                text = "Rejalashtirilgan tadbirlar yo`q"
+                requests.get(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
 
     def myEvents(self, chat_id, user_id, token, poll='admin'):
 
