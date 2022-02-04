@@ -58,7 +58,7 @@ class NOTIFICATION():
 
         date = datetime.now()
         hour = date.time().hour
-
+        cdate = date.date()
         max = hour+(23-hour)*3600
 
         conditions = {}
@@ -78,8 +78,9 @@ class NOTIFICATION():
         for ev in events:
 
             date = datetime.fromtimestamp(int(ev[1]))
-
-            if hour < date.hour < max:
+            edate = date.date()
+            if hour < date.hour < max and cdate==edate:
+                print(cdate, edate)
 
                 users = self.db.fetchall(
                     table='orders',
@@ -115,4 +116,4 @@ class NOTIFICATION():
 
                     main = mainBtns(lang=user[0])
 
-                    requests.get(f"https://api.telegram.org/bot{self.token}/sendPhoto?chat_id={chat_id[0]}&photo={event[2]}&reply_markup={main}&caption={text}")
+                    # requests.get(f"https://api.telegram.org/bot{self.token}/sendPhoto?chat_id={chat_id[0]}&photo={event[2]}&reply_markup={main}&caption={text}")
