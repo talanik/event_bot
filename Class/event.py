@@ -52,6 +52,7 @@ class EVENT():
         eventDescription = columns.index(f"event_desc{eventDescLang}")
 
         main = mainBtns(lang=user_id)
+        count = 0
 
         if len(events)>0:
             event_text = self.system.getlocalize(user_id=user_id, alias="events")
@@ -86,9 +87,15 @@ class EVENT():
                     else:
                         event_btns = eventBtn(event, 'user', ordered=False, user_id=user_id)
 
-                requests.get(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={chat_id}&photo={event[5]}&reply_markup={event_btns}&caption={text}")
+                if event[eventDescription] is not None or event[eventDescription]!='':
+                    requests.get(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={chat_id}&photo={event[5]}&reply_markup={event_btns}&caption={text}")
+                    count += 1
+                    text = ""
 
-                text = ""
+                if count == 0:
+                    text = "Активных событий нет"
+                    requests.get(
+                        f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}&reply_markup={main}")
 
         else:
 

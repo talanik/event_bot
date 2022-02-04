@@ -29,8 +29,6 @@ authorized_ids = system.getAgents()
 token = system.getToken()
 
 langDB = DB()
-d = datetime.datetime.now()
-print(d.date(), d.time())
 notify = NOTIFICATION()
 
 bot = Bot(token=token)
@@ -64,7 +62,7 @@ async def everyDayNotify():
 
 async def scheduler():
 
-    aioschedule.every().day.at("10:00").do(everyDayNotify)
+    aioschedule.every().day.at("04:00").do(everyDayNotify)
 
     while True:
         await aioschedule.run_pending()
@@ -515,7 +513,7 @@ async def process_help_command(message: types.Message):
 
         await message.answer(f'''Доступные команды
         /id - узнайте свой Telegram ID
-        /importToTable - Добавить или удалить администраторов
+        /importToTable - Добавить или удалить разделами Агенты, События
         /getTplAgents - Получить шаблон файла для работы с администраторами
         /getTplEvents - Получить шаблон файла для работы с событиями
         ''', reply_markup=main)
